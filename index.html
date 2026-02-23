@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Système | Initialisation</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter&display=swap" rel="stylesheet">
+  <style>
+    /* Style spécifique pour l'arrière-plan de index.html */
+    .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('solo.jpg'); /* Remplace par le chemin de ton image */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2; /* Réduit l'opacité pour que le texte reste lisible */
+      z-index: -1; /* Place l'arrière-plan derrière le contenu */
+    }
+  </style>
+</head>
+<body>
+  <!-- Arrière-plan avec image de Jin Woo -->
+  <div class="background-image"></div>
+
+  <section class="boot">
+    <div class="boot-box">
+      <p class="boot-text">INITIALISATION DU SYSTÈME DE CHASSEUR...</p>
+      <p class="boot-text">VÉRIFICATION DES APTITUDES...</p>
+      <p class="boot-text">UTILISATEUR IDENTIFIÉ : NDIAGA THIAM</p>
+      <h1>CHASSEUR DE COMPÉTENCES</h1>
+      <h2>SPÉCIALISATION : <span>ÉLECTRONIQUE & SYSTÈMES EMBARQUÉS</span></h2>
+      <p class="status">STATUT : <span id="status-text">EN LIGNE</span></p>
+      <a href="systeme.html" class="btn">ACCÉDER AU TABLEAU DE BORD</a>
+    </div>
+  </section>
+
+  <script>
+    // Animation pour le texte "EN LIGNE"
+    const statusText = document.getElementById('status-text');
+    setInterval(() => {
+      statusText.style.opacity = statusText.style.opacity === '0' ? '1' : '0';
+    }, 1000);
+  </script>
+</body>
+</html>

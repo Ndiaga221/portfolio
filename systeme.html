@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Système | Tableau de Bord</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght=300;400&display=swap" rel="stylesheet">
+  <style>
+    .system-background {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 45%;
+      height: 60%;
+      background-image: url('solo-system.jpg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: top right;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .level-up-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 15, 20, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .level-up-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .level-up-box {
+      text-align: center;
+      border: 2px solid #00ff9c;
+      padding: 50px 80px;
+      box-shadow: 0 0 40px #00ff9c;
+      animation: pulse 1.5s infinite;
+    }
+
+    .level-up-box h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      color: #00ff9c;
+      margin-bottom: 15px;
+      text-shadow: 0 0 20px #00ff9c;
+    }
+
+    .level-up-box p {
+      color: #00e5ff;
+      font-size: 1.2rem;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px #00ff9c; }
+      50% { box-shadow: 0 0 60px #00ff9c; }
+      100% { box-shadow: 0 0 20px #00ff9c; }
+    }
+
+    .skill-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-level-up {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #00ff9c;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  text-shadow: 0 0 10px #00ff9c;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+.system-bg {
+  position: fixed;
+  inset: 0;
+  background-image: url("solo-back.jpg"); /* ton image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15; /* ajuste entre 0.1 et 0.2 */
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Assure que le contenu reste au-dessus */
+body {
+  position: relative;
+  z-index: 1;
+}
+
+  </style>
+</head>
+<body>
+  <div class="system-background"></div>
+  <header class="header">
+    <h1>SYSTÈME — TABLEAU DE BORD</h1>
+    <p>UTILISATEUR : NDIAGA THIAM</p>
+  </header>
+
+  <nav class="system-nav">
+    <ul>
+      <li><a href="#profil">PROFIL</a></li>
+      <li><a href="#competences">APTITUDES</a></li>
+      <li><a href="#quetes">QUÊTES</a></li>
+      <li><a href="contact.html">COORDONNÉES</a></li>
+      <li><a href="galerie.html">ARCHIVES</a></li>
+    </ul>
+  </nav>
+
+  <!-- PROFIL -->
+  <section id="profil" class="section">
+    <h2 class="section-title">STATUT DU CHASSEUR</h2>
+    <div class="dashboard">
+      <div class="card hunter-card">
+        <img src="chasseur.jpg" alt="Portrait du chasseur" class="hunter-photo">
+        <h3>CHASSEUR ENREGISTRÉ</h3>
+        <p>ID : #NT-1207</p>
+        <p>Statut : <span style="color:#00ff9c">ACTIF</span></p>
+      </div>
+
+      <div class="card">
+        <h3>PROFIL</h3>
+        
+        <p><strong>Nom :</strong> Ndiaga Thiam</p>
+        <p><strong>Rang :</strong> Chasseur (Niveau : BUT2)</p>
+        <p><strong>Guilde :</strong> IUT 1 Grenoble</p>
+        <p><strong>Spécialisation :</strong> Électronique & Systèmes Embarqués</p>
+      </div>
+      <div class="card">
+        <h3>STATISTIQUES</h3>
+        <div class="skill">
+          <span>Électronique</span>
+          <div class="bar"><div style="width:80%"></div></div>
+        </div>
+        <div class="skill">
+          <span>Systèmes Embarqués</span>
+          <div class="bar"><div style="width:70%"></div></div>
+        </div>
+        <div class="skill">
+          <span>Programmation</span>
+          <div class="bar"><div style="width:60%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESSION DU CHASSEUR -->
+  <section class="section">
+    <h2 class="section-title">PROGRESSION DU CHASSEUR</h2>
+    <div class="card">
+      <p>Niveau actuel : <strong id="hunter-level">12</strong></p>
+      <div class="bar">
+        <div id="xp-bar" style="width: 0%"></div>
+      </div>
+      <p id="xp-text">EXP : 0 / 100</p>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences" class="section">
+    <h2 class="section-title">APTITUDES DU CHASSEUR</h2>
+    <div class="grid">
+      <div class="skill-card skill-click">
+        Arduino<br><span>Intermédiaire</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+      <div class="skill-card skill-click">
+        STM32<br><span>Intermédiaire</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+      <div class="skill-card skill-click">
+        PIC16F / PIC18F<br><span>Intermédiaire</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+      <div class="skill-card skill-click">
+        FPGA<br><span>Débutant</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+      <div class="skill-card skill-click">
+        KiCad<br><span>Intermédiaire</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+      <div class="skill-card skill-click">
+        C / C++<br><span>Intermédiaire</span>
+        <span class="skill-level-up">+20 XP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="quetes" class="section">
+    <h2 class="section-title">QUÊTES COMPLÉTÉES</h2>
+    <div class="card">
+      <h3>QUÊTE #001 — ROBOT SUIVEUR DE LIGNE</h3>
+      <p><strong>Objectif :</strong> Concevoir un système autonome répondant à un cahier des charges.</p>
+      <p><strong>Technologies :</strong> PIC16F, KiCad, RPR220, C</p>
+      <p><strong>Résultat :</strong> Système fonctionnel et validé.</p>
+      <p><strong>Récompenses :</strong> +10 en Conception PCB, +15 en Programmation Microcontrôleur</p>
+    </div>
+    <div class="card">
+      <h3>QUÊTE SPÉCIALE — RESTAURATION RAPIDE : FAST RESPONSE UNIT</h3>
+      <p><strong>Alias :</strong> Employé Polyvalent — KFC</p>
+      <p><strong>Période :</strong> Novembre 2024 – Aujourd’hui</p>
+      <p><strong>Objectifs de la quête :</strong></p>
+      <ul>
+        <li>Assurer le service client en environnement sous pression</li>
+        <li>Gérer les commandes et la caisse avec rapidité et précision</li>
+        <li>Travailler en équipe coordonnée</li>
+        <li>Respecter des protocoles stricts d’hygiène et de sécurité</li>
+      </ul>
+      <p><strong>Récompenses obtenues :</strong></p>
+      <ul>
+        <li>+20 Endurance mentale</li>
+        <li>+15 Travail d’équipe</li>
+        <li>+10 Gestion du stress</li>
+      </ul>
+      <p><strong>Statut :</strong> <span style="color:#00ff9c">QUÊTE COMPLÉTÉE</span></p>
+    </div>
+    <div class="card">
+      <h3>MISSION EN COURS — CHIEN ELECTRONIQUE</h3>
+      <p><strong>Alias :</strong> Système électronique de dissuasion des intrus</p>
+      <p><strong>Objectif :</strong></p>
+      <p>Concevoir un système électronique capable de détecter une présence et d’émettre un signal dissuasif en imitant la présence d'un chien afin d’éloigner les intrus.</p>
+      <p><strong>Technologies prévues :</strong></p>
+      <ul>
+        <li>Microcontrôleur (PIC18F26K22)</li>
+        <li>Capteurs de présence mmWave SEN0610</li>
+        <li>Amplificateur audio (LM386)</li>
+        <li>Actionneurs sonores ou lumineux</li>
+      </ul>
+      <p><strong>Progression :</strong></p>
+      <ul>
+        <li>Analyse du besoin : ✔️</li>
+        <li>Architecture du système : ⏳</li>
+        <li>Prototype : 🔒</li>
+      </ul>
+      <p><strong>Statut :</strong> <span style="color:#00e5ff">MISSION EN COURS</span></p>
+    </div>
+  </section>
+
+  <!-- OVERLAY LEVEL UP -->
+  <div id="level-up" class="level-up-overlay">
+    <div class="level-up-box">
+      <h1>LEVEL UP</h1>
+      <p>Niveau du chasseur augmenté</p>
+    </div>
+  </div>
+
+  <!-- SON LEVEL UP -->
+  <audio id="level-up-sound" src="level-up.mp3" preload="auto"></audio>
+
+  <script>
+    let xp = 0;
+    let level = 12;
+    const xpPerClick = 20;
+
+    const xpBar = document.getElementById('xp-bar');
+    const xpText = document.getElementById('xp-text');
+    const levelText = document.getElementById('hunter-level');
+    const sound = document.getElementById('level-up-sound');
+
+    function levelUp() {
+      const overlay = document.getElementById('level-up');
+      overlay.classList.add('active');
+
+      sound.currentTime = 0;
+      sound.play().catch(() => {
+        console.log("Lecture automatique bloquée");
+      });
+
+      setTimeout(() => {
+        overlay.classList.remove('active');
+      }, 2500);
+    }
+
+    document.querySelectorAll('.skill-click').forEach(skill => {
+      skill.addEventListener('click', () => {
+        // Jouer le son
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+
+        // Afficher le label XP
+        const label = skill.querySelector('.skill-level-up');
+        label.style.display = 'block';
+        setTimeout(() => {
+          label.style.display = 'none';
+        }, 1000);
+
+        // Ajouter de l'XP
+        xp += xpPerClick;
+        if (xp > 100) xp = 100;
+
+        xpBar.style.width = xp + '%';
+        xpText.textContent = `EXP : ${xp} / 100`;
+
+        // Niveau du chasseur augmenté
+        if (xp === 100) {
+          level++;
+          levelText.textContent = level;
+          xp = 0;
+          xpBar.style.width = '0%';
+          xpText.textContent = 'EXP : 0 / 100';
+
+          // Message système global
+          setTimeout(() => {
+            levelUp();
+          }, 300);
+        }
+      });
+    });
+
+    // Activer le level up au chargement de la page
+    window.onload = () => {
+      setTimeout(levelUp, 1000);
+    };
+  </script>
+  <div class="system-bg"></div>
+  <footer class="back-nav">
+  <a href="mentions-legales.html" class="btn">MENTIONS LÉGALES</a>
+</footer>
+
+</body>
+</html>
